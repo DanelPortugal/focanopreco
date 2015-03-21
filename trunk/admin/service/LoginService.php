@@ -8,6 +8,7 @@
             $DataBse->ExecutListQuery();
             if($DataBse->returnQuery->num_rows > 0){
                 $result = mysqli_fetch_assoc($DataBse->returnQuery);
+                $dados["codErro"] = 0;
                 $dados["codUsuario"] = $result["cod_usuario"];
                 $dados["nomUsuario"] = $result["nom_usuario"];
                 $dados["sobNomUsuario"] = $result["sob_nom_usuario"];

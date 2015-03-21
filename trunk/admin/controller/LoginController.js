@@ -8,7 +8,9 @@ $(document).ready(function(){
                 nomSenha: $("#txtSenha").val()
             },
             function( data ) {
-                console.log(data);
+                if(data["codErro"] == 0){
+                    window.location = "index.php"
+                }
             }
         ,"json");
     });
