@@ -9,7 +9,7 @@ $(document).ready(function(){
             },
             function( data ) {
                 if(data["codErro"] == 0){
-                    window.location = "index.php"
+                    window.location = "index.html"
                 }
             }
         ,"json");
