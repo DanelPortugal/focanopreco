@@ -1,5 +1,6 @@
 <?php
     require_once("../repository/DataBase.class.php");
+    session_start("usuario");
     
     switch($_POST['action']){
         
@@ -34,6 +35,13 @@
             }
             
             $DataBse->Close();
+            echo json_encode($dados);
+            break;
+        
+        case "logout":
+            $dados["codErro"] = 0;
+            session_destroy();
+            
             echo json_encode($dados);
             break;
     }
