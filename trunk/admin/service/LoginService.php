@@ -1,9 +1,17 @@
 <?php
     require_once("../repository/DataBase.class.php");
     
-    session_start("usuario");
-    
     switch($_POST['action']){
+        
+        case "verfica_logado":
+            if(isset($_SESSION["codUsuario"])){
+                $dados['logged'] = true;
+            }else{
+                $dados['logged'] = false;
+            }
+            echo json_encode($dados);
+            break;
+        
         case "login":
             $DataBse = new DataBase();
             $DataBse->sql = "call logar_usuario('".$_POST["nomLogin"]."','".$_POST["nomSenha"]."');";

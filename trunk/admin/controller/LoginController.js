@@ -1,4 +1,7 @@
 $(document).ready(function(){
+    
+    verificaLogado();
+    
     $(document).off("click", "#btnLogin");
     $(document).on("click", "#btnLogin", function(){
         $.post( "../service/LoginService.php",
@@ -14,4 +17,16 @@ $(document).ready(function(){
             }
         ,"json");
     });
+    
+    function verificaLogado(){
+        $.post( "../service/LoginService.php", {
+                action:'verfica_logado'
+            },
+            function( data ) {
+                if(data["logged"]){
+                    window.location = "index.html";
+                }
+            }
+        ,"json");
+    }
 });
