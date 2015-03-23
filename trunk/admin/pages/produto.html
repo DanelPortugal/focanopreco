@@ -47,11 +47,11 @@
                             <table id="tblProduto" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 				<thead>
                 					<tr>
+                                        <th style="max-width: 20px;">C&oacute;digo</th>
                 						<th>Nome</th>
-                						<th>C&oacute;digo</th>
                 						<th>Descri&ccedil;&atilde;o</th>
                 						<th>Categoria</th>
-                						<th></th>
+                						<th style="width: 50px;"></th>
                 					</tr>
                 				</thead>
                 				<tbody id="tbdProduto"></tbody>
@@ -62,6 +62,39 @@
             </div>
         </div>
         <!-- /#page-wrapper -->
+        
+        <div class="modal fade modalProduto" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Produto <span id="nomProdutoModal"></span></h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="codProdutoModal"/>
+                        
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="nomProdutoEdit" class="col-sm-2 control-label">Nome</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="nomProdutoEdit">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="desProdutoEdit" class="col-sm-2 control-label">Descri&ccedil;&atilde;o</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="desProdutoEdit">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" id="btnSalvaEditProduto">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 </div>
     
     <!-- jQuery -->

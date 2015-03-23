@@ -218,12 +218,12 @@ UNLOCK TABLES;
 -- Table structure for table `categora`
 --
 
-DROP TABLE IF EXISTS `categora`;
+DROP TABLE IF EXISTS `categoria`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `categora` (
   `cod_categoria` int(11) NOT NULL AUTO_INCREMENT,
-  `nom_categora` varchar(45) NOT NULL,
+  `nom_categoria` varchar(45) NOT NULL,
   `des_categoria` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`cod_categoria`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
