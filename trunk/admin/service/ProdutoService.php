@@ -14,9 +14,9 @@
                 while($result = $DataBse->returnQuery->fetch_assoc()){
                     $dados["html"] .= '<tr>';
                     $dados["html"] .= '   <td>'.$result['cod_produto'].'</td>';
-                    $dados["html"] .= '   <td>'.$result['nom_produto'].'</td>';
-                    $dados["html"] .= '   <td>'.$result['des_produto'].'</td>';
-                    $dados["html"] .= '   <td>'.$result['nom_categoria'].'</td>';
+                    $dados["html"] .= '   <td>'.utf8_encode($result['nom_produto']).'</td>';
+                    $dados["html"] .= '   <td>'.utf8_encode($result['des_produto']).'</td>';
+                    $dados["html"] .= '   <td>'.utf8_encode($result['nom_categoria']).'</td>';
                     $dados["html"] .= '<td style="text-align:center; word-wrap:normal;" class="dropdown">
                                             <a href="#" id="optUser" data-toggle="dropdown" class="dropdown-toggle btn">
                                                 <span class="glyphicon glyphicon-cog"></span>
