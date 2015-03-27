@@ -69,14 +69,23 @@
         <div class="intro-body">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-                        <h1 class="brand-heading"><img src="img/logo_index.png"/></h1>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <div class="col-md-12" style="text-align: center;">
+                            <h1 class="brand-heading"><img src="img/logo_index.png" class="img-responsive"/></h1>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Digite o nome, categoria ou produto"/>
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-info" value="Procurar"> 
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
                     </div>
-                    <div class="col-md-6 col-md-offset-3">
-                        <input type="text" class="form-control" placeholder="Digite o nome, categoria ou produto"/>
-                    </div>
-                    <p class="col-md-6 col-md-offset-3">&nbsp;</p>
-                    <div class="col-md-6 col-md-offset-3">
+                    <div class="col-md-4"></div>
+                    <p class="col-md-12">&nbsp;</p>
+                    <div class="col-md-12" style="text-align: center;">
                         <a href="#about" class="page-scroll btn btn-warning">D&aacute; uma olhada no que tem de bom pra hoje.</a>
                     </div>
                 </div>
@@ -99,8 +108,16 @@
                 
                 <!-- Tab panes -->
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="memoria"><span id="contentMemoria"></span></div>
-                    <div role="tabpanel" class="tab-pane active" id="computador"><span id="contentComput"></span></div>
+                    <div role="tabpanel" class="tab-pane active" id="memoria">
+                        <div class="alert alert-info" role="alert" id="pleaseWaitProdutoMemoria">Carregando Produto...</div>
+                        <span id="contentMemoria">
+                        </span>
+                    </div>
+                    <div role="tabpanel" class="tab-pane active" id="computador">
+                        <div class="alert alert-info" role="alert" id="pleaseWaitProdutoComput" style="display: none;">Carregando Produto...</div>
+                        <span id="contentComput">
+                        </span>
+                    </div>
                 </div>
                 
                 </div>
@@ -110,11 +127,7 @@
 
     <div id="map"></div>
 
-    <footer>
-        <div class="container text-center">
-            <p>Copyright &copy; Foca no Pre&ccedil;o - 2015</p>
-        </div>
-    </footer>
+    <span id="footer"></span>
 
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
