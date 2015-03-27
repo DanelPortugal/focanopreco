@@ -384,6 +384,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_produto_selecionado`(
 BEGIN
 	SELECT * FROM produto prod
     INNER JOIN categoria cat on cat.cod_categoria = prod.cod_categoria
+    LEFT JOIN imagem img on img.cod_produto = prod.cod_produto
     WHERE prod.cod_produto = codProduto;
 END ;;
 DELIMITER ;
@@ -448,4 +449,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-03-27 11:20:53
+-- Dump completed on 2015-03-27 13:36:58
