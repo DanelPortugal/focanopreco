@@ -57,9 +57,9 @@
                 
                 while($result = $DataBse->returnQuery->fetch_assoc()){
                     $dados["cod_produto"] = $result['cod_produto'];
-                    $dados["nom_produto"] = $result['nom_produto'];
-                    $dados["des_produto"] = $result['des_produto'];
-                    $dados["nom_categoria"] = $result['nom_categoria'];
+                    $dados["nom_produto"] = utf8_encode($result['nom_produto']);
+                    $dados["des_produto"] = utf8_encode($result['des_produto']);
+                    $dados["nom_categoria"] = utf8_encode($result['nom_categoria']);
                     $dados["cod_categoria"] = $result['cod_categoria'];
                 }
                 
@@ -77,7 +77,7 @@
         
         case "editar_produto":
             $DataBse = new DataBase();
-            $DataBse->sql = "call editar_produto(".intval($_POST["codProduto"]).", '".$_POST["nomProduto"]."', '".$_POST["desProduto"]."');";
+            $DataBse->sql = "call editar_produto(".intval($_POST["codProduto"]).", '".htmlentities($_POST["nomProduto"])."', '".htmlentities($_POST["desProduto"])."');";
             $DataBse->ExecutListQuery();
                 
             $dados["codErro"] = 0;
