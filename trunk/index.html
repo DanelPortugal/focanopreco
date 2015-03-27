@@ -93,18 +93,14 @@
 
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
-                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
-                    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
-                    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+                    <li role="presentation" id="tabMemoria"class="active"><a href="#memoria" aria-controls="memoria" role="tab" data-toggle="tab">Mem&oacute;rias</a></li>
+                    <li role="presentation" id="tabComput"><a href="#computador" aria-controls="computador" role="tab" data-toggle="tab">Computadores</a></li>
                 </ul>
                 
                 <!-- Tab panes -->
                 <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="home">...</div>
-                <div role="tabpanel" class="tab-pane" id="profile">...</div>
-                <div role="tabpanel" class="tab-pane" id="messages">...</div>
-                <div role="tabpanel" class="tab-pane" id="settings">...</div>
+                    <div role="tabpanel" class="tab-pane active" id="memoria"><span id="contentMemoria"></span></div>
+                    <div role="tabpanel" class="tab-pane active" id="computador"><span id="contentComput"></span></div>
                 </div>
                 
                 </div>
@@ -112,30 +108,21 @@
         </div>
     </section>
 
-    <!-- Map Section -->
     <div id="map"></div>
 
-    <!-- Footer -->
     <footer>
         <div class="container text-center">
             <p>Copyright &copy; Foca no Pre&ccedil;o - 2015</p>
         </div>
     </footer>
 
-    <!-- jQuery -->
     <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
-
-    <!-- Plugin JavaScript -->
     <script src="js/jquery.easing.min.js"></script>
-
-    <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
-
-    <!-- Custom Theme JavaScript -->
     <script src="js/grayscale.js"></script>
+    
+    <script src="controller/IndexController.js"></script>
 
 </body>
 
