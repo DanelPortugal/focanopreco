@@ -5,6 +5,19 @@ $(document).ready(function(){
             $("#pleaseWait").hide();
         });
     });
+    
+    $("#preProdutoInsert").maskMoney();
+    
+    $(document).off("click", "#btnInserirProd");
+    $(document).on("click", "#btnInserirProd", function(){
+        $("#stlSubCatProdInsert").html("");
+        listarCategoria("#stlCatProdInsert");
+    });
+    
+    $(document).off("click", "#btnSalvaInserProduto");
+    $(document).on("click", "#btnSalvaInserProduto", function(){
+        inserirProduto();
+    });
 
     $(document).off("click", "#optEditProduto");
     $(document).on("click", "#optEditProduto", function(){
@@ -15,7 +28,12 @@ $(document).ready(function(){
     $(document).on("click", "#btnSalvaEditProduto", function(){
         editaProduto();
     });
-
+    
+    $("#stlCatProdInsert").change(function(){
+        $("#stlSubCatProdInsert").html("");
+        listarSubCategoria("#stlSubCatProdInsert", $(this).val());
+    });
+    
     listaProduto();
 
     function listaProduto(){
@@ -25,6 +43,35 @@ $(document).ready(function(){
             function(data) {
                 if(data["codErro"] == 0){
                     $("#tbdProduto").html(data["html"]);
+                }else{
+                    window.location = "pages/login.html";
+                }
+            }
+        ,"json");
+    }
+    
+    function listarCategoria(element){
+        $.post( "../service/ProdutoService.php", {
+                action:'listar_categoria'
+            },
+            function(data) {
+                if(data["codErro"] == 0){
+                    $(element).html(data["html"]);
+                }else{
+                    window.location = "pages/login.html";
+                }
+            }
+        ,"json");
+    }
+    
+    function listarSubCategoria(element, codCat){
+        $.post( "../service/ProdutoService.php", {
+                action:'listar_sub_categoria',
+                cod_categoria: codCat
+            },
+            function(data) {
+                if(data["codErro"] == 0){
+                    $(element).html(data["html"]);
                 }else{
                     window.location = "pages/login.html";
                 }
@@ -42,6 +89,57 @@ $(document).ready(function(){
                     $("#nomProdutoEdit").val(data["nom_produto"]);
                     $("#desProdutoEdit").val(data["des_produto"]);
                     $("#codProdutoModal").val(codProduto);
+                }else{
+                    window.location = "pages/login.html";
+                }
+            }
+        ,"json");
+    }
+    
+    function inserirProduto(){
+        $.post( "../service/ProdutoService.php", {
+                action:'inserir_produto',
+                nomProduto: $("#nomProdutoInsert").val(),
+                desProduto: $("#desProdutoInsert").val(),
+                codCategoria: $("#stlCatProdInsert").val(),
+                preProduto: $("#preProdutoInsert").val().slice(3).replace(',', '').replace('.', ''),
+                codSubCategoria: $("#stlSubCatProdInsert").val()
+            },
+            function(data) {
+                if(data["codErro"] == 0){
+                    listaProdutoInserido();
+                }else{
+                    alert("nao foi");
+                }
+            }
+        ,"json");
+    }
+    
+    function listaProdutoInserido(){
+        $.post( "../service/ProdutoService.php", {
+                action:'listar_produto_inserido'
+            },
+            function(data) {
+                if(data["codErro"] == 0){
+                    $("#codProdInsert").val(data["cod_produto"]);
+                    inserirImgProduto();
+                }else{
+                    window.location = "pages/login.html";
+                }
+            }
+        ,"json");
+    }
+    
+    function inserirImgProduto(){
+        $.post( "../service/ProdutoService.php", {
+                action: 'inserir_imagem_produto',
+                imgPeq: $("#iptCaminhoImagem").val(),
+                imgGrd: $("#iptCaminhoImagem").val(),
+                codProduto: $("#codProdInsert").val()
+            },
+            function(data) {
+                if(data["codErro"] == 0){
+                    listaProduto();
                 }else{
                     window.location = "pages/login.html";
                 }
@@ -66,4 +164,68 @@ $(document).ready(function(){
             }
         ,"json");
     }
+    
+    var files;
+    
+    $('#uploadFileInsert').off("change");
+    $('#uploadFileInsert').on("change", prepareUpload);
+
+	function prepareUpload(event)
+	{
+        $("#sucessUploadInsert").hide();
+        $("#errorUploadInsert").hide();
+        
+		files = event.target.files;
+        
+        if(files.length > 1){
+            $("#errorUploadInsert").show();
+            $("#descErrorUploadInsert").html("SELECIONE APENAS UMA (1) IMAGEM !");
+        }else{
+        
+            var data = new FormData();
+    		$.each(files, function(key, value)
+    		{
+    			data.append(key, value);
+    		});
+            
+            $("#lblFeedbackUploadInsert").show();
+            $.ajax({
+                url: '../service/UploadProdutoService.php?files',
+                type: 'POST',
+                data: data,
+                cache: false,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function(data, textStatus, jqXHR)
+                {
+                    $("#lblFeedbackUploadInsert").hide();
+                    
+                    if(typeof data.error === 'undefined')
+                	{
+                        var files = "";
+                        for (i = 0; i < data.files.length; i++) { 
+                            files += data.files[i];
+                        }
+                        
+                        $("#iptCaminhoImagem").val(files.slice(6));
+                		$("#sucessUploadInsert").show();
+                        $("#descSucessUploadInsert").html("UPLOAD CONCLU&Iacute;DO COM SUCESSO !");
+                	}
+                	else
+                	{
+                		$("#errorUploadInsert").show();
+                        $("#descErrorUploadInsert").html("ERRO COM UPLOAD, CONTATO O ADMINISTRADOR !");
+                	}
+                    
+                },
+                error: function(jqXHR, textStatus, errorThrown)
+                {
+                    $("#errorUploadInsert").show();
+                    $("#descErrorUploadInsert").html("ERRO COM UPLOAD, CONTATO O ADMINISTRADOR !");
+                    console.log('ERRORS: ' + textStatus);
+                }
+            });
+        }
+	}
 });

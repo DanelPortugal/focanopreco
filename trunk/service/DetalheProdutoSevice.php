@@ -35,8 +35,8 @@
         $htmlProd .= '  <img src="../'.$dado['produto_img_peq'].'" class="img-responsive"/>';
         $htmlProd .= '</div>';
         $htmlProd .= '<div class="col-md-6"><br/>';
-        $htmlProd .= '  <div class="col-md-12"><h3>'.$dado['nom_produto'].'</h3></div>';
-        $htmlProd .= '  <div class="col-md-12"><h5>'.$dado['des_produto'].'</h5></div>';
+        $htmlProd .= '  <div class="col-md-12"><h3>'.utf8_encode($dado['nom_produto']).'</h3></div>';
+        $htmlProd .= '  <div class="col-md-12"><h5>'.utf8_encode($dado['des_produto']).'</h5></div>';
         $htmlProd .= '  <div class="col-md-12"><h3><b>R$</b> '.$dado['pre_produto'].'</h3></div>';
         $htmlProd .= '</div>';
         return $htmlProd;

@@ -25,7 +25,7 @@
 
     	private function Connect(){
             $this->conn = new mysqli($this->hostname, $this->username, $this->password, $this->database);
-
+            $this->conn->set_charset("utf8");
             if ($this->conn->error) {
                 die("Connection failed: " . $this->conn->error);
             } 
