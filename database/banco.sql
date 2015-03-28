@@ -53,7 +53,6 @@ CREATE TABLE `imagem` (
   `produto_img_peq` text,
   `produto_img_grd` text,
   `cod_produto` int(11) DEFAULT NULL,
-  `cod_imagem` varchar(45) NOT NULL,
   KEY `cod_produto_imagem` (`cod_produto`),
   CONSTRAINT `cod_produto_imagem` FOREIGN KEY (`cod_produto`) REFERENCES `produto` (`cod_produto`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -65,7 +64,6 @@ CREATE TABLE `imagem` (
 
 LOCK TABLES `imagem` WRITE;
 /*!40000 ALTER TABLE `imagem` DISABLE KEYS */;
-INSERT INTO `imagem` VALUES ('image_repository/thumb/39717054.jpg','image_repository/thumb/39717054.jpg',1,'1'),('image_repository/thumb/39717054.jpg','image_repository/thumb/39717054.jpg',2,'2'),('image_repository/thumb/notebook.jpg','image_repository/thumb/notebook.jpg',3,'3'),('image_repository/thumb/39717054.jpg','image_repository/thumb/39717054.jpg',9,'4'),('image_repository/thumb/39717054.jpg','image_repository/thumb/39717054.jpg',10,'5'),('image_repository/thumb/39717054.jpg','image_repository/thumb/39717054.jpg',11,'6'),('image_repository/thumb/Lighthouse.jpg','image_repository/thumb/Lighthouse.jpg',12,'7');
 /*!40000 ALTER TABLE `imagem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -170,16 +168,16 @@ CREATE TABLE `produto` (
   `des_produto` varchar(45) DEFAULT NULL,
   `cod_usuario` int(11) NOT NULL,
   `cod_categoria` int(11) NOT NULL,
-  `pre_produto` decimal(10,2) DEFAULT NULL,
+  `pre_produto` varchar(25) DEFAULT NULL,
   `cod_sub_categoria` int(11) NOT NULL,
   PRIMARY KEY (`cod_produto`),
   KEY `fk_produto_usuario1_idx` (`cod_usuario`),
   KEY `fk_produto_categora1_idx` (`cod_categoria`),
   KEY `fk_sub_categoria` (`cod_sub_categoria`),
-  CONSTRAINT `fk_sub_categoria` FOREIGN KEY (`cod_sub_categoria`) REFERENCES `sub_categoria` (`cod_sub_categoria`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_produto_categora1` FOREIGN KEY (`cod_categoria`) REFERENCES `categoria` (`cod_categoria`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_produto_usuario1` FOREIGN KEY (`cod_usuario`) REFERENCES `usuario` (`cod_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_produto_usuario1` FOREIGN KEY (`cod_usuario`) REFERENCES `usuario` (`cod_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_sub_categoria` FOREIGN KEY (`cod_sub_categoria`) REFERENCES `sub_categoria` (`cod_sub_categoria`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -188,7 +186,6 @@ CREATE TABLE `produto` (
 
 LOCK TABLES `produto` WRITE;
 /*!40000 ALTER TABLE `produto` DISABLE KEYS */;
-INSERT INTO `produto` VALUES (1,'Teste 123 deh','Teste ',1,1,'100.20',1),(2,'Moméria Ram 3','Lorem Ipsun',1,1,'200.00',1),(3,'Asus Teste','PC Asus',1,2,'1000.20',2),(9,'teste imagem','teste',1,1,'3211.00',1),(10,'123','123',1,1,'1211.00',1),(11,'teste jsjsj','qweq',1,1,'31.00',1),(12,'1231','123123',1,1,'123.00',1);
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -597,4 +594,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-03-28 16:56:28
+-- Dump completed on 2015-03-28 17:18:08

@@ -137,7 +137,7 @@
             $DataBse->ExecutListQuery();
                 
             $dados["codErro"] = 0;
-            $dados["msg"] = "PRODUTO INSERÍDO COM SUCESSO !";
+            $dados["msg"] = "PRODUTO INSERIDO COM SUCESSO !";
 
             $DataBse->Close();
             echo json_encode($dados);
