@@ -64,6 +64,7 @@ CREATE TABLE `imagem` (
 
 LOCK TABLES `imagem` WRITE;
 /*!40000 ALTER TABLE `imagem` DISABLE KEYS */;
+INSERT INTO `imagem` VALUES ('image_repository/thumb/notebook.jpg','image_repository/thumb/notebook.jpg',21),('image_repository/thumb/notebook.jpg','image_repository/thumb/notebook.jpg',22),('image_repository/thumb/memoria-ram-ddr1-1gb.jpg','image_repository/thumb/memoria-ram-ddr1-1gb.jpg',23),('image_repository/thumb/notebook.jpg','image_repository/thumb/notebook.jpg',24),('image_repository/thumb/Tulips.jpg','image_repository/thumb/Tulips.jpg',25),('image_repository/thumb/Penguins.jpg','image_repository/thumb/Penguins.jpg',26),('image_repository/thumb/Lighthouse.jpg','image_repository/thumb/Lighthouse.jpg',27);
 /*!40000 ALTER TABLE `imagem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -177,7 +178,7 @@ CREATE TABLE `produto` (
   CONSTRAINT `fk_produto_categora1` FOREIGN KEY (`cod_categoria`) REFERENCES `categoria` (`cod_categoria`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_produto_usuario1` FOREIGN KEY (`cod_usuario`) REFERENCES `usuario` (`cod_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_sub_categoria` FOREIGN KEY (`cod_sub_categoria`) REFERENCES `sub_categoria` (`cod_sub_categoria`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -186,6 +187,7 @@ CREATE TABLE `produto` (
 
 LOCK TABLES `produto` WRITE;
 /*!40000 ALTER TABLE `produto` DISABLE KEYS */;
+INSERT INTO `produto` VALUES (21,'Note Book','Excel&ecirc;nte note, aprovado',1,2,'1200.00',2),(22,'Note Book','Excel&ecirc;nte note, aprovado',1,2,'1200.00',2),(23,'Mem&oacute;ria Ram','&Oacute;tima oportunidade',1,1,'120.00',1),(24,'teste','teste',1,2,'10.00',2),(25,'Tul&iacute;pa','asdasd',1,1,'100.00',1),(26,'teste lendo','qweqwe',1,1,'100.00',1),(27,'teste 3','321321',1,1,'100.00',1);
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -594,4 +596,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-03-28 17:18:08
+-- Dump completed on 2015-03-28 21:14:53
