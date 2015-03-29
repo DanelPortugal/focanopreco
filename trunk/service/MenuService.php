@@ -42,7 +42,7 @@
                                         </ul>
                                     </li>
                               </ul>
-                                <ul class="nav nav-pills navbar-right">
+                                <ul class="nav navbar-nav navbar-right">
                                     <li class="dropdown pull-left">';
         if(isset($_SESSION["logged"])){
             $htmlProd .= '              <span>Bem vindo: '.$_SESSION["nome_usuario"].'</span>';
