@@ -2,6 +2,7 @@ $(document).ready(function(){
     
     $("#footer").load("include/Footer.html");
     
+    listaMenu();
     listaProDesqMemoria();
     
     $(document).off("click", "#tabMemoria");
@@ -20,6 +21,20 @@ $(document).ready(function(){
     $(document).on("click", "#btnDetalheProduto", function(){
         window.open("view/detalheproduto.html?produto=" + $(this).attr("data_cod_produto"), "_self");
     });
+    
+    function listaMenu(){
+        $.post( "service/MenuService.php", {
+                action:'lista_menu_index'
+            },
+            function( data ) {
+                if(data["codErro"] == 0){
+                    $("#menu").html(data["htmlMenu"]);
+                }else{
+                    window.location = "pages/login.html";
+                }
+            }
+        ,"json");
+    }
     
     function listaProDesqMemoria(){
         $.post( "service/IndexService.php", {
