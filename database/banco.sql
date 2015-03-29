@@ -135,15 +135,17 @@ CREATE TABLE `usuario` (
   `sob_nom_usuario` varchar(45) DEFAULT NULL,
   `ind_usuario` int(11) NOT NULL DEFAULT '0',
   `cod_perfil` int(11) NOT NULL,
-  `co_usuario_pai` int(11) DEFAULT NULL,
-  `nom_login` varchar(45) NOT NULL,
+  `cod_usuario_pai` int(11) DEFAULT NULL,
+  `nom_login` varchar(200) NOT NULL,
   `des_senha` varchar(45) NOT NULL,
+  `des_email_usuario` varchar(200) DEFAULT NULL,
+  `ind_network_usuario` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`cod_usuario`),
   KEY `fk_usuario_perfil_idx` (`cod_perfil`),
-  KEY `fk_usuario_usuario1` (`co_usuario_pai`),
-  CONSTRAINT `fk_usuario_perfil` FOREIGN KEY (`cod_perfil`) REFERENCES `perfil` (`cod_perfil`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_usuario_usuario1` FOREIGN KEY (`co_usuario_pai`) REFERENCES `usuario` (`cod_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  KEY `fk_usuario_usuario1` (`cod_usuario_pai`),
+  CONSTRAINT `fk_usuario_usuario1` FOREIGN KEY (`cod_usuario_pai`) REFERENCES `usuario` (`cod_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_usuario_perfil` FOREIGN KEY (`cod_perfil`) REFERENCES `perfil` (`cod_perfil`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,7 +154,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Administrador','Admin',1,1,NULL,'admin','admin');
+INSERT INTO `usuario` VALUES (1,'Administrador','Admin',1,1,NULL,'admin','admin',NULL,0),(16,'Thiago','Bloomfield',1,3,NULL,'777022582366598','usuario_network','thiagobloomfield@oi.com.br',1);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -230,7 +232,7 @@ CREATE TABLE `perfil` (
   `nom_perfil` varchar(45) NOT NULL,
   `des_perfil` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`cod_perfil`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -239,7 +241,7 @@ CREATE TABLE `perfil` (
 
 LOCK TABLES `perfil` WRITE;
 /*!40000 ALTER TABLE `perfil` DISABLE KEYS */;
-INSERT INTO `perfil` VALUES (1,'ADMINISTRADOR','ADMINISTRADOR SISTEMA'),(2,'ANUNCIANTE','ANUNCIANTE DE PRODUTO');
+INSERT INTO `perfil` VALUES (1,'ADMINISTRADOR','ADMINISTRADOR SISTEMA'),(2,'ANUNCIANTE','ANUNCIANTE DE PRODUTO'),(3,'USUÁRIO REDE SOCIAL','USUÁRIO LOGIN REDE SOCIAL');
 /*!40000 ALTER TABLE `perfil` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -427,6 +429,51 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `inserir_usuario_network` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `inserir_usuario_network`(
+    IN nomUsuario VARCHAR(45),
+    IN sobNomUsuario VARCHAR(45),
+    IN nomLogin VARCHAR(200),
+    IN emailUsuario VARCHAR(200)
+)
+BEGIN
+    INSERT INTO `focanopreco`.`usuario`
+    (
+    `nom_usuario`,
+    `sob_nom_usuario`,
+    `ind_usuario`,
+    `cod_perfil`,
+    `nom_login`,
+    `des_senha`,
+    `des_email_usuario`,
+    `ind_network_usuario`
+    )
+    VALUES
+    (
+    nomUsuario,
+    sobNomUsuario,
+    1,
+    3,
+    nomLogin,
+    'usuario_network',
+    emailUsuario,
+    1
+    );
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `listar_categoria` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -586,6 +633,31 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `logar_usuario_network` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `logar_usuario_network`(
+    IN nomLogin VARCHAR(45),
+    IN desEmail VARCHAR(45)
+)
+BEGIN
+    SELECT * FROM usuario
+    WHERE nom_login = nomLogin
+    AND des_senha = 'usuario_network'
+    AND des_email_usuario = desEmail;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -596,4 +668,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-03-28 21:14:53
+-- Dump completed on 2015-03-29 14:22:25

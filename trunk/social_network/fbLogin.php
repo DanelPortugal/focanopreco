@@ -22,14 +22,30 @@
                 // nesse IF verificamos se veio os dados corretamente
                 if(isset($user->email) && $user->email){
                     $DataBse = new DataBase();
-                    $DataBse->sql = "call inserir_usuario_network(
-                                            '".$user->name."', 
-                                            '".$user->email."')";
+                    
+                    $DataBse->sql = "call logar_usuario_network('".$user->id."', '".$user->email."')";
                     $DataBse->ExecutListQuery();
+
+                    if($DataBse->returnQuery->num_rows > 0){
+                        $DataBse->returnQuery->free();
+                        echo "JA ESTOU LOGADO";
+                    }else{
+                        $DataBse->Close();
+                        $DataBse = new DataBase();
+                        $DataBse->sql = "call inserir_usuario_network(
+                                            '".$user->first_name."',
+                                            '".$user->last_name."', 
+                                            '".$user->id."',
+                                            '".$user->email."')";
+                        $DataBse->ExecutListQuery();
+                       echo "NAO ESTOU LOGADO";
+                    }
                     $DataBse->Close();
+                    
                     $_SESSION["logged"] = true;
                     $_SESSION["email_usuario"] = $user->email;
-                    $_SESSION["nome_usuario"] = $user->name;
+                    $_SESSION["nome_usuario"] = $user->first_name;
+
                     header("location:../index.html");
                 }
             }else{
