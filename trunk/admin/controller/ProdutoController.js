@@ -1,5 +1,8 @@
 $(document).ready(function(){
-
+    var files;
+    var data = new FormData();
+    var $btn;
+    
     $("#menu").load("../includes/Menu.html", function(){
         $("#superMenu").load("../includes/SuperMenu.html", function(){
             $("#pleaseWait").hide();
@@ -11,12 +14,17 @@ $(document).ready(function(){
     $(document).off("click", "#btnInserirProd");
     $(document).on("click", "#btnInserirProd", function(){
         $("#stlSubCatProdInsert").html("");
+        $("#sucessInsert").hide();
+        $("#errorInsert").hide();
+        $("#sucessUploadInsert").hide();
+        $("#errorUploadInsert").hide();
         listarCategoria("#stlCatProdInsert");
     });
     
     $(document).off("click", "#btnSalvaInserProduto");
     $(document).on("click", "#btnSalvaInserProduto", function(){
-        inserirProduto();
+        $btn = $(this).button('loading');
+        doUpload();
     });
 
     $(document).off("click", "#optEditProduto");
@@ -139,9 +147,13 @@ $(document).ready(function(){
             },
             function(data) {
                 if(data["codErro"] == 0){
+                    $("#sucessInsert").show();
+                    $("#descSucessnsert").html(data['msg']);
                     listaProduto();
+                    $btn.button('reset');
                 }else{
-                    window.location = "pages/login.html";
+                    $("#errorInsert").show();
+                    $("#descErrorInsert").html(data['msg']);
                 }
             }
         ,"json");
@@ -165,8 +177,6 @@ $(document).ready(function(){
         ,"json");
     }
     
-    var files;
-    
     $('#uploadFileInsert').off("change");
     $('#uploadFileInsert').on("change", prepareUpload);
 
@@ -181,51 +191,55 @@ $(document).ready(function(){
             $("#errorUploadInsert").show();
             $("#descErrorUploadInsert").html("SELECIONE APENAS UMA (1) IMAGEM !");
         }else{
-        
-            var data = new FormData();
     		$.each(files, function(key, value)
     		{
     			data.append(key, value);
     		});
-            
-            $("#lblFeedbackUploadInsert").show();
-            $.ajax({
-                url: '../service/UploadProdutoService.php?files',
-                type: 'POST',
-                data: data,
-                cache: false,
-                dataType: 'json',
-                processData: false,
-                contentType: false,
-                success: function(data, textStatus, jqXHR)
-                {
-                    $("#lblFeedbackUploadInsert").hide();
-                    
-                    if(typeof data.error === 'undefined')
-                	{
-                        var files = "";
-                        for (i = 0; i < data.files.length; i++) { 
-                            files += data.files[i];
-                        }
-                        
-                        $("#iptCaminhoImagem").val(files.slice(6));
-                		$("#sucessUploadInsert").show();
-                        $("#descSucessUploadInsert").html("UPLOAD CONCLU&Iacute;DO COM SUCESSO !");
-                	}
-                	else
-                	{
-                		$("#errorUploadInsert").show();
-                        $("#descErrorUploadInsert").html("ERRO COM UPLOAD, CONTATO O ADMINISTRADOR !");
-                	}
-                    
-                },
-                error: function(jqXHR, textStatus, errorThrown)
-                {
-                    $("#errorUploadInsert").show();
-                    $("#descErrorUploadInsert").html("ERRO COM UPLOAD, CONTATO O ADMINISTRADOR !");
-                    console.log('ERRORS: ' + textStatus);
-                }
-            });
         }
 	}
+    
+    function doUpload()
+    {
+        $("#lblFeedbackUploadInsert").show();
+    
+        $.ajax({
+            url: '../service/UploadProdutoService.php?files',
+            type: 'POST',
+            data: data,
+            cache: false,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            success: function(data, textStatus, jqXHR)
+            {
+                $("#lblFeedbackUploadInsert").hide();
+                
+                if(typeof data.error === 'undefined')
+            	{
+                    var files = "";
+                    for (i = 0; i < data.files.length; i++) { 
+                        files += data.files[i];
+                    }
+                    
+                    $("#iptCaminhoImagem").val(files.slice(6));
+            		$("#sucessUploadInsert").show();
+                    $("#descSucessUploadInsert").html("UPLOAD CONCLU&Iacute;DO COM SUCESSO !");
+                    
+                    inserirProduto();
+            	}
+            	else
+            	{
+            		$("#errorUploadInsert").show();
+                    $("#descErrorUploadInsert").html("ERRO COM UPLOAD, CONTATO O ADMINISTRADOR !");
+            	}
+                
+            },
+            error: function(jqXHR, textStatus, errorThrown)
+            {
+                $("#errorUploadInsert").show();
+                $("#descErrorUploadInsert").html("ERRO COM UPLOAD, CONTATO O ADMINISTRADOR !");
+                console.log('ERRORS: ' + textStatus);
+            }
+        });
+    }
 });

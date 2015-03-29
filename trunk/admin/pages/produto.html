@@ -37,167 +37,160 @@
 
 <div class="row" style="margin-right: 0px;">
 
-        <div id="menu"></div>
+    <div id="menu"></div>
+    <br />
+    <div id="page-wrapper" class="col-sm-9">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;Produtos
+                </div>
+                <div class="panel-body">
+                    <span class="row">
+                        <button id="btnInserirProd" class="btn btn-success pull-right" data-toggle="modal" data-target=".inserirProduto">
+                            <span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Inserir Produto
+                        </button>
+                    </span>
+                    <table id="tblProduto" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        				<thead>
+        					<tr>
+                                <th style="width: 70px;">C&oacute;d.</th>
+        						<th style="width: 50px;">Img.</th>
+                                <th>Nome</th>
+        						<th>Descri&ccedil;&atilde;o</th>
+        						<th>Categoria</th>
+        						<th style="width: 50px;"></th>
+        					</tr>
+        				</thead>
+        				<tbody id="tbdProduto"></tbody>
+        			</table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-wrapper -->
         
-        
-        <div id="page-wrapper" class="col-sm-9">
-            <br />
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;Produtos
+    <!-- MODAL INSERIR PRODUTO -->
+    <div class="modal fade inserirProduto" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Inserir Produto <span id="nomProdutoModal"></span></h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="codProdutoModal"/>
+                    
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="catProdutoInsert" class="col-sm-2 control-label">Categor&iacute;a</label>
+                            <div class="col-sm-10">
+                                <select id="stlCatProdInsert" class="sltCatProd form-control"></select>
+                            </div>
                         </div>
-                        <div class="panel-body">
-                            <span class="col-md-12">
-                                <button id="btnInserirProd" class="btn btn-success pull-right" data-toggle="modal" data-target=".inserirProduto">
-                                    <span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Inserir Produto
-                                </button>
-                            </span>
-                            <table id="tblProduto" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                				<thead>
-                					<tr>
-                                        <th style="width: 70px;">C&oacute;d.</th>
-                						<th style="width: 50px;">Img.</th>
-                                        <th>Nome</th>
-                						<th>Descri&ccedil;&atilde;o</th>
-                						<th>Categoria</th>
-                						<th style="width: 50px;"></th>
-                					</tr>
-                				</thead>
-                				<tbody id="tbdProduto"></tbody>
-                			</table>
+                        <div class="form-group">
+                            <label for="catProdutoInsert" class="col-sm-2 control-label">Sub Categor&iacute;a</label>
+                            <div class="col-sm-10">
+                                <select id="stlSubCatProdInsert" class="sltSubCatProd form-control"></select>
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <input type="hidden" id="iptCaminhoImagem"/>
+                            <label for="catProdutoInsert" class="col-sm-2 control-label">Imagem</label>
+                            <div class="col-sm-5">
+                                <input class="btn btn-default form-control" value="Mudar" id="uploadFileInsert" type="file" name="file_upload" multiple/>
+                            </div>
+                            <div class="col-sm-5">
+                                <label id="lblFeedbackUploadInsert" style="display: none;">Fazendo Upload ..</label>
+                            </div>
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <label for="nomProdutoInsert" class="col-sm-2 control-label">Nome</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="nomProdutoInsert">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="desProdutoInsert" class="col-sm-2 control-label">Descri&ccedil;&atilde;o</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" id="desProdutoInsert"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="preProdutoInsert" class="col-sm-2 control-label">Pre&ccedil;o</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="preProdutoInsert" data-affixes-stay="true" data-prefix="R$ " data-thousands="." data-decimal=",">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="preProdutoInsert" class="col-sm-2 control-label"></label>
+                            <div class="col-sm-10">
+                                <div id="sucessUploadInsert" class="alert alert-success" role="alert" style="display: none;">
+                                    <span id="descSucessUploadInsert"></span>
+                                </div>
+                                <div id="errorUploadInsert" class="alert alert-danger" role="alert" style="display: none;">
+                                    <span id="descErrorUploadInsert"></span>
+                                </div>
+                                <div id="sucessInsert" class="alert alert-success" role="alert" style="display: none;">
+                                    <span id="descSucessnsert"></span>
+                                </div>
+                                <div id="errorInsert" class="alert alert-danger" role="alert" style="display: none;">
+                                    <span id="descErrorInsert"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="codProdInsert"/>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                    <button type="button" id="btnSalvaInserProduto" data-loading-text="Lendo..." class="btn btn-primary" autocomplete="off">Salvar</button>
                 </div>
             </div>
         </div>
-        <!-- /#page-wrapper -->
-        
-        <!-- MODAL INSERIR PRODUTO -->
-        <div class="modal fade inserirProduto" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Inserir Produto <span id="nomProdutoModal"></span></h4>
-                    </div>
-                    <div class="modal-body">
-                        <input type="hidden" id="codProdutoModal"/>
-                        
-                        <form class="form-horizontal">
-                            <div class="form-group">
-                                <label for="catProdutoInsert" class="col-sm-2 control-label">Categor&iacute;a</label>
-                                <div class="col-sm-10">
-                                    <select id="stlCatProdInsert" class="sltCatProd form-control"></select>
-                                </div>
+    </div>
+    <!-- MODAL INSERIR PRODUTO -->
+    
+    <!-- MODAL EDITAR PRODUTO -->
+    <div class="modal fade modalProduto" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Produto <span id="nomProdutoModal"></span></h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="codProdutoModal"/>
+                    
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="nomProdutoEdit" class="col-sm-2 control-label">Nome</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="nomProdutoEdit">
                             </div>
-                            <div class="form-group">
-                                <label for="catProdutoInsert" class="col-sm-2 control-label">Sub Categor&iacute;a</label>
-                                <div class="col-sm-10">
-                                    <select id="stlSubCatProdInsert" class="sltSubCatProd form-control"></select>
-                                </div>
-                            </div> 
-                            <div class="form-group">
-                                <input type="hidden" id="iptCaminhoImagem"/>
-                                <label for="catProdutoInsert" class="col-sm-2 control-label">Imagem</label>
-                                <div class="col-sm-5">
-                                    <input class="btn btn-default form-control" value="Mudar" id="uploadFileInsert" type="file" name="file_upload" multiple/>
-                                </div>
-                                <div class="col-sm-5">
-                                    <label id="lblFeedbackUploadInsert" style="display: none;">Fazendo Upload ..</label>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="desProdutoEdit" class="col-sm-2 control-label">Descri&ccedil;&atilde;o</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="desProdutoEdit">
                             </div>
-                            <div class="form-group">
-                                <label for="preProdutoInsert" class="col-sm-2 control-label"></label>
-                                <div class="col-sm-10">
-                                    <div id="sucessUploadInsert" class="alert alert-success" role="alert" style="display: none;">
-                                        <span id="descSucessUploadInsert"></span>
-                                    </div>
-                                    <div id="errorUploadInsert" class="alert alert-danger" role="alert" style="display: none;">
-                                        <span id="descErrorUploadInsert"></span>
-                                    </div>
-                                </div>                                    
-                            </div>
-                            <div class="form-group">
-                                <label for="nomProdutoInsert" class="col-sm-2 control-label">Nome</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="nomProdutoInsert">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="desProdutoInsert" class="col-sm-2 control-label">Descri&ccedil;&atilde;o</label>
-                                <div class="col-sm-10">
-                                    <textarea class="form-control" id="desProdutoInsert"></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="preProdutoInsert" class="col-sm-2 control-label">Pre&ccedil;o</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="preProdutoInsert" data-affixes-stay="true" data-prefix="R$ " data-thousands="." data-decimal=",">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="preProdutoInsert" class="col-sm-2 control-label"></label>
-                                <div class="col-sm-10">
-                                    <div id="sucessInsert" class="alert alert-success" role="alert" style="display: none;">
-                                        <span id="descSucessnsert"></span>
-                                    </div>
-                                    <div id="errorInsert" class="alert alert-danger" role="alert" style="display: none;">
-                                        <span id="descErrorInsert"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <input type="hidden" id="codProdInsert"/>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" id="btnSalvaInserProduto">Salvar</button>
-                    </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnSalvaEditProduto">Salvar</button>
                 </div>
             </div>
         </div>
-        <!-- MODAL INSERIR PRODUTO -->
-        
-        <!-- MODAL EDITAR PRODUTO -->
-        <div class="modal fade modalProduto" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Produto <span id="nomProdutoModal"></span></h4>
-                    </div>
-                    <div class="modal-body">
-                        <input type="hidden" id="codProdutoModal"/>
-                        
-                        <form class="form-horizontal">
-                            <div class="form-group">
-                                <label for="nomProdutoEdit" class="col-sm-2 control-label">Nome</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="nomProdutoEdit">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="desProdutoEdit" class="col-sm-2 control-label">Descri&ccedil;&atilde;o</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="desProdutoEdit">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" id="btnSalvaEditProduto">Salvar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- MODAL EDITAR PRODUTO -->
+    </div>
+    <!-- MODAL EDITAR PRODUTO -->
 </div>
     
     <script src="../js/jquery.js"></script>
     <script src="../js/jquery.maskMoney.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/button.js"></script>
 
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
     
