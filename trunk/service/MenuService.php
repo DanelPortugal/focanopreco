@@ -42,7 +42,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li>
                                     <a class="btn btn-block btn-social btn-facebook" href="https://www.facebook.com/dialog/oauth?client_id=898030020238477&redirect_uri=http://bloomfieldserver.no-ip.info/focanopreco/trunk/social_network/fbLogin.php&scope=email,user_website,user_location">
-                                        <i class="fa fa-facebook"></i> Login Facebook
+                                        <i class="fa fa-facebook"></i><span class="pull-right" style="padding-left: 25px;">Login Facebook</span>
                                     </a>
                                 </li>
                             </ul>';
