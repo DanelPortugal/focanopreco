@@ -13,16 +13,11 @@
                 $dados["html"] = '';
                 while($result = $DataBse->returnQuery->fetch_assoc()){
                     $dados["html"] .= '<tr>';
-                    $dados["html"] .= '   <td>'.$result['cod_produto'].'</td>';
-                    $dados["html"] .= '   <td><img width="50px" height="50px" src="../../'.$result['produto_img_peq'].'"/></td>';
-                    $dados["html"] .= '   <td>'.$result['nom_produto'].'</td>';
-                    $dados["html"] .= '   <td>'.$result['des_produto'].'</td>';
-                    $dados["html"] .= '   <td>'.$result['nom_categoria'].'</td>';
                     $dados["html"] .= '<td style="text-align:center; word-wrap:normal;" class="dropdown">
                                             <a href="#" id="optUser" data-toggle="dropdown" class="dropdown-toggle btn">
                                                 <span class="glyphicon glyphicon-cog"></span>
                 								<b class="caret"/></a>
-                								<ul class="dropdown-menu dropdown-menu-right dropDownMenuCustomTd">
+                								<ul class="dropdown-menu dropDownMenuCustomTd">
                 									<li>
                                                         <a href="#" id="optEditProduto" class="glyphicon glyphicon-pencil optTd"
                     									   data_cod_produto="'.$result['cod_produto'].'"
@@ -35,6 +30,11 @@
                                                 </ul>
                                             </a>
             							</td>';
+                    $dados["html"] .= '   <td>'.$result['cod_produto'].'</td>';
+                    $dados["html"] .= '   <td><img width="50px" height="50px" src="../../'.$result['produto_img_peq'].'"/></td>';
+                    $dados["html"] .= '   <td>'.$result['nom_produto'].'</td>';
+                    $dados["html"] .= '   <td>'.$result['des_produto'].'</td>';
+                    $dados["html"] .= '   <td>'.$result['nom_categoria'].'</td>';
                     $dados["html"] .= '</tr>';
                 }
                 $dados["codErro"] = 0;

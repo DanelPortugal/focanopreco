@@ -51,6 +51,15 @@ $(document).ready(function(){
             function(data) {
                 if(data["codErro"] == 0){
                     $("#tbdProduto").html(data["html"]);
+                    
+                    if($("#tbdProduto").html() != ""){
+                        $('#tblProduto').addClass('no-wrap');
+
+                        $('#tblProduto').DataTable( {
+                            responsive: true
+                        } );
+                    }
+                    
                 }else{
                     window.location = "pages/login.html";
                 }
