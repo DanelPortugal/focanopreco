@@ -31,7 +31,7 @@
                             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                               <ul class="nav navbar-nav">
                                     <li class="dropdown pull-left">
-                                        <a href="#" class="btn dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
                                             <span class="glyphicon glyphicon-align-justify fa-2x"></span>
                                             <span>Cidades</span>
                                         </a>
@@ -48,7 +48,7 @@
             $htmlProd .= '              <span>Bem vindo: '.$_SESSION["nome_usuario"].'</span>';
         }else{
             $htmlProd .= ' 
-                                        <a href="#" class="btn dropdown-toggle fa fa-user fa-2x" data-toggle="dropdown" role="button" aria-expanded="false">
+                                        <a href="#" class="dropdown-toggle fa fa-user fa-2x " data-toggle="dropdown" role="button" aria-expanded="false">
                                             <span class="caret fa-2x"></span>
                                         </a>
                                         <div class="dropdown-menu" role="menu" id="divLoginIndex">
