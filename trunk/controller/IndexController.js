@@ -5,6 +5,14 @@ $(document).ready(function(){
     listaMenu();
     listaProDesqMemoria();
     
+    $(document).off("keypress", "#txtPesquisaProduto");
+    $(document).on("keypress", "#txtPesquisaProduto", function(e){
+        if(e.which == 13){
+            var str = "view/PesquisaProduto.html?pesquisa="+$("#txtPesquisaProduto").val()
+            window.location = str;
+        }
+    });
+    
     $(document).off("click", "#tabMemoria");
     $(document).on("click", "#tabMemoria", function(){
         $("#pleaseWaitProdutoMemoria").show();
