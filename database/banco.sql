@@ -64,7 +64,7 @@ CREATE TABLE `imagem` (
 
 LOCK TABLES `imagem` WRITE;
 /*!40000 ALTER TABLE `imagem` DISABLE KEYS */;
-INSERT INTO `imagem` VALUES ('image_repository/thumb/notebook.jpg','image_repository/thumb/notebook.jpg',21),('image_repository/thumb/notebook.jpg','image_repository/thumb/notebook.jpg',22),('image_repository/thumb/memoria-ram-ddr1-1gb.jpg','image_repository/thumb/memoria-ram-ddr1-1gb.jpg',23),('image_repository/thumb/notebook.jpg','image_repository/thumb/notebook.jpg',24),('image_repository/thumb/Tulips.jpg','image_repository/thumb/Tulips.jpg',25),('image_repository/thumb/Penguins.jpg','image_repository/thumb/Penguins.jpg',26),('image_repository/thumb/Lighthouse.jpg','image_repository/thumb/Lighthouse.jpg',27);
+INSERT INTO `imagem` VALUES ('image_repository/thumb/notebook.jpg','image_repository/thumb/notebook.jpg',21),('image_repository/thumb/notebook.jpg','image_repository/thumb/notebook.jpg',22),('image_repository/thumb/memoria-ram-ddr1-1gb.jpg','image_repository/thumb/memoria-ram-ddr1-1gb.jpg',23),('image_repository/thumb/notebook.jpg','image_repository/thumb/notebook.jpg',24),('image_repository/thumb/Tulips.jpg','image_repository/thumb/Tulips.jpg',25),('image_repository/thumb/Penguins.jpg','image_repository/thumb/Penguins.jpg',26),('image_repository/thumb/Lighthouse.jpg','image_repository/thumb/Lighthouse.jpg',27),('image_repository/thumb/Jellyfish.jpg','image_repository/thumb/Jellyfish.jpg',28);
 /*!40000 ALTER TABLE `imagem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,9 +143,9 @@ CREATE TABLE `usuario` (
   PRIMARY KEY (`cod_usuario`),
   KEY `fk_usuario_perfil_idx` (`cod_perfil`),
   KEY `fk_usuario_usuario1` (`cod_usuario_pai`),
-  CONSTRAINT `fk_usuario_usuario1` FOREIGN KEY (`cod_usuario_pai`) REFERENCES `usuario` (`cod_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_usuario_perfil` FOREIGN KEY (`cod_perfil`) REFERENCES `perfil` (`cod_perfil`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_usuario_perfil` FOREIGN KEY (`cod_perfil`) REFERENCES `perfil` (`cod_perfil`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_usuario_usuario1` FOREIGN KEY (`cod_usuario_pai`) REFERENCES `usuario` (`cod_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -154,7 +154,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Administrador','Admin',1,1,NULL,'admin','admin',NULL,0),(16,'Thiago','Bloomfield',1,3,NULL,'777022582366598','usuario_network','thiagobloomfield@oi.com.br',1);
+INSERT INTO `usuario` VALUES (1,'Administrador','Admin',1,1,NULL,'admin','admin',NULL,0),(16,'Thiago','Bloomfield',1,3,NULL,'777022582366598','usuario_network','thiagobloomfield@oi.com.br',1),(17,'Déborah','Guedes',1,3,NULL,'615937951874944','usuario_network','deborah.guedes94@hotmail.com',1);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -180,7 +180,7 @@ CREATE TABLE `produto` (
   CONSTRAINT `fk_produto_categora1` FOREIGN KEY (`cod_categoria`) REFERENCES `categoria` (`cod_categoria`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_produto_usuario1` FOREIGN KEY (`cod_usuario`) REFERENCES `usuario` (`cod_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_sub_categoria` FOREIGN KEY (`cod_sub_categoria`) REFERENCES `sub_categoria` (`cod_sub_categoria`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -189,7 +189,7 @@ CREATE TABLE `produto` (
 
 LOCK TABLES `produto` WRITE;
 /*!40000 ALTER TABLE `produto` DISABLE KEYS */;
-INSERT INTO `produto` VALUES (21,'Note Book','Excel&ecirc;nte note, aprovado',1,2,'1200.00',2),(22,'Note Book','Excel&ecirc;nte note, aprovado',1,2,'1200.00',2),(23,'Mem&oacute;ria Ram','&Oacute;tima oportunidade',1,1,'120.00',1),(24,'teste','teste',1,2,'10.00',2),(25,'Tul&iacute;pa','asdasd',1,1,'100.00',1),(26,'teste lendo','qweqwe',1,1,'100.00',1),(27,'teste 3','321321',1,1,'100.00',1);
+INSERT INTO `produto` VALUES (21,'Note Book','Excel&ecirc;nte note, aprovado',1,2,'1200.00',2),(22,'Note Book','Excel&ecirc;nte note, aprovado',1,2,'1200.00',2),(23,'Mem&oacute;ria Ram','&Oacute;tima oportunidade',1,1,'120.00',1),(24,'teste','teste',1,2,'10.00',2),(25,'Tul&iacute;pa','asdasd',1,1,'100.00',1),(26,'teste lendo','qweqwe',1,1,'100.00',1),(27,'teste 3','321321',1,1,'100.00',1),(28,'Teste dam dam','hahah',1,2,'10.00',2);
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -539,6 +539,41 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `listar_produto_pesquisa` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `listar_produto_pesquisa`(
+    IN nomProduto VARCHAR(45)
+)
+BEGIN
+    SELECT 
+        prod.cod_produto,
+        prod.nom_produto,
+        prod.des_produto,
+        prod.cod_usuario,
+        prod.cod_categoria,
+        prod.pre_produto,
+        cat.nom_categoria,
+        img.produto_img_peq,
+        usu.nom_usuario
+    FROM produto prod
+    LEFT JOIN usuario usu ON usu.cod_usuario = prod.cod_usuario
+    LEFT JOIN categoria cat ON cat.cod_categoria = prod.cod_categoria
+    LEFT JOIN imagem img ON img.cod_produto = prod.cod_produto
+    WHERE prod.nom_produto like nomProduto;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `listar_produto_selecionado` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -668,4 +703,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-03-29 14:22:25
+-- Dump completed on 2015-03-31 12:54:59
