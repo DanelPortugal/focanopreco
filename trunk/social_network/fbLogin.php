@@ -21,6 +21,8 @@
                 $user = json_decode(file_get_contents($graph_url));
                 // nesse IF verificamos se veio os dados corretamente
                 if(isset($user->email) && $user->email){
+                    echo file_get_contents('https://graph.facebook.com/'.$user->id.'/picture?type=large');
+                    
                     $DataBse = new DataBase();
                     
                     $DataBse->sql = "call logar_usuario_network('".$user->id."', '".$user->email."')";
@@ -46,7 +48,7 @@
                     $_SESSION["email_usuario"] = $user->email;
                     $_SESSION["nome_usuario"] = $user->first_name;
 
-                    header("location:../index.html");
+                    //header("location:../index.html");
                 }
             }else{
                 echo "Erro de conexão com Facebook";
