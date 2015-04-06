@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buildpath>
+	<buildpathentry kind="src" path="trunk/admin/mail"/>
+	<buildpathentry kind="src" path="trunk/admin/repository"/>
+	<buildpathentry kind="src" path="trunk/admin/service"/>
+	<buildpathentry kind="src" path="trunk/google"/>
+	<buildpathentry kind="src" path="trunk/repository"/>
+	<buildpathentry kind="src" path="trunk/service"/>
+	<buildpathentry kind="src" path="trunk/social_network"/>
+	<buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
+</buildpath>

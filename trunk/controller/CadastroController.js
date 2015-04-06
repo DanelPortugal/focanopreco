@@ -1,6 +1,6 @@
 $(document).ready(function(){
     
-    $("#footer").load("../include/Footer.html");
+    $("#footer").load("../include/FooterView.html");
     
     listaMenu();
     
