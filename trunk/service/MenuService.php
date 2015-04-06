@@ -43,13 +43,18 @@
                                     </li>
                               </ul>
                                 <ul class="nav navbar-nav navbar-right">
+                                    <li class="dropdown pull-left">
+                                        <a href="#" id="btnMenuFavorito">
+                                            <span class="glyphicon glyphicon-star-empty fa-2x"></span>&nbsp;Favoritos
+                                        </a>
+                                    </li>
                                     <li class="dropdown pull-left">';
         if(isset($_SESSION["logged"])){
             $htmlProd .= '              <span>Bem vindo: '.$_SESSION["nome_usuario"].'</span>';
         }else{
             $htmlProd .= ' 
-                                        <a href="#" class="dropdown-toggle fa fa-user fa-2x " data-toggle="dropdown" role="button" aria-expanded="false">
-                                            <span class="caret fa-2x"></span>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                            <span class="fa fa-user fa-2x"></span>&nbsp;Entrar<span class="caret fa-2x"></span>
                                         </a>
                                         <div class="dropdown-menu" role="menu" id="divLoginIndex">
                                             <div class="col-md-12">

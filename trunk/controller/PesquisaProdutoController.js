@@ -20,19 +20,14 @@ $(document).ready(function(){
         $(".divDescProd").removeClass("col-md-4");
     });
     
-    $(document).off("click", "#btnDetalheProduto");
-    $(document).on("click", "#btnDetalheProduto", function(){
-        window.open("detalheproduto.html?produto=" + $(this).attr("data_cod_produto"), "_self");
-    });
-    
     function listaProdRequest(){
         $.post( "../service/PesquisaProdutoService.php", {
                 action:'listar_produto_pesquisa',
-                nom_produto: getParameterByName("pesquisa")
+                nomProduto: getParameterByName("pesquisa")
             },
             function( data ) {
                 if(data["codErro"] == 0){
-                    $("#contentPesquisaProduto").html(data['html']);
+                    $("#divPesquisaProduto").html(data['html']);
                 }else{
                     window.location = "pages/login.html";
                 }
