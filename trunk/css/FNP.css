@@ -1,0 +1,46 @@
+@CHARSET "ISO-8859-1";
+.navbar-default {
+  background-color: #011565 !important;
+  border-color: #011565 !important;
+}
+
+.navbar-default .navbar-nav>li>a {
+  color: #FFF;
+}
+
+.navbar-default .navbar-nav>li>a:hover,
+.navbar-default .navbar-nav>li>a:link {
+  color: #F1F1F1;
+}
+
+.navbar {
+  border-radius: 0;
+  margin-bottom: 0;
+}
+
+.intro {
+    display: table;
+    width: 100%;
+    height: auto;
+    padding: 100px 0;
+    text-align: center;
+    color: #fff;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+.intro-body
+{
+	padding: 0;
+	display: table-cell;
+    vertical-align: middle;
+}
+
+
+#top-link-block {
+    position: fixed; /* keeps it on the bottom once in view */
+    bottom: 18px;
+    right: 10px;
+}

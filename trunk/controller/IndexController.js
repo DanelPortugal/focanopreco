@@ -94,13 +94,13 @@ $(document).ready(function(){
 function signinCallback(authResult) {
     if (authResult['access_token']) {
     // Autorizado com sucesso
-    // Ocultar o botão de login agora que o usuário está autorizado, por exemplo:
+    // Ocultar o botï¿½o de login agora que o usuï¿½rio estï¿½ autorizado, por exemplo:
     //document.getElementById('signinButton').setAttribute('style', 'display: none');
     } else if (authResult['error']) {
     // Ocorreu um erro.
-    // Possíveis códigos de erro:
-    //  "access_denied" - o usuário negou o acesso a seu aplicativo
-    //   "immediate_failed" - não foi possível fazer o login do usuário automaticamente
+    // Possï¿½veis cï¿½digos de erro:
+    //  "access_denied" - o usuï¿½rio negou o acesso a seu aplicativo
+    //   "immediate_failed" - nï¿½o foi possï¿½vel fazer o login do usuï¿½rio automaticamente
     // console.log('There was an error: ' + authResult['error']);
     }
 }

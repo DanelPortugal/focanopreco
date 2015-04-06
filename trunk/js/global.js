@@ -11,7 +11,7 @@ $(document).ready(function(){
     
     $(document).off('click', '#btnMenuFavorito');
     $(document).on('click', '#btnMenuFavorito', function(){
-         bookmarksite("Foca no Preço", "http://bloomfieldserver.no-ip.info/focanopreco/trunk/#");
+         bookmarksite("Foca no Preï¿½o", "http://bloomfieldserver.no-ip.info/focanopreco/trunk/#");
     });
 });
 
