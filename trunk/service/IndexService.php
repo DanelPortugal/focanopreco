@@ -55,13 +55,15 @@
         $htmlProd = '';
         $htmlProd .= '<div class="panel panel-default col-md-3">
                             <div class="panel-body">
-                                <div class="col-md-12">';
+                                <div class="col-md-12" id="imgProduto">';
         $htmlProd  .= '           <img src="'.$dado['produto_img_peq'].'" class="img-responsive"/>';
         $htmlProd  .= '       </div>';
-        $htmlProd  .= '       <div class="col-md-12"><b>'.utf8_encode($dado['nom_produto']).'</b></div>';
-        $htmlProd  .= '       <div class="col-md-12">'.utf8_encode($dado['des_produto']).'</div>';
+        $htmlProd  .= '       <div class="col-md-12" id="nomeProduto"><b>'.utf8_encode($dado['nom_produto']).'</b></div>';
+        $htmlProd  .= '       <div class="col-md-12" id="descProduto">'.utf8_encode($dado['des_produto']).'</div>';
         $htmlProd  .= '       <div class="col-md-12"><b>R$</b> '.$dado['pre_produto'].'</div>';
         $htmlProd  .= '       <div class="col-md-12"><button class="btn btn-default" id="btnDetalheProduto" data_cod_produto="'.$dado['cod_produto'].'">Ver Detalhes</button></div>';
+        $htmlProd  .= '       <div class="col-md-6"><a href="#" class="glyphicon glyphicon-star" id="btnFavoritoProduto" data_cod_produto="'.$dado['cod_produto'].'">Favoritos</a></div>';
+        $htmlProd  .= '       <div class="col-md-6"><input type="checkbox" id="btnComparaProduto" data_cod_produto="'.$dado['cod_produto'].'"/>Comparar</div>';
         $htmlProd  .= '    </div>
                         </div>';
         return $htmlProd;

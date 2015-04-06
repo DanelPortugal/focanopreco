@@ -1,4 +1,6 @@
 $(document).ready(function(){
+	
+	var produtosComparados = [];
     
     $("#footer").load("include/Footer.html");
     
@@ -33,6 +35,22 @@ $(document).ready(function(){
     $(document).on('click', '#divLoginIndex', function (event) {
         $(this).parent().addClass('open');
         event.stopPropagation();
+    });
+    
+    $(document).on("click", "#btnComparaProduto", function(){
+    	$("#contentComparaProduto").show(200);
+    	if(produtosComparados.length > 0){
+    		$("#comparaProdutoSecond").show();
+    		produtosComparados[1] = $(this).attr("data_cod_produto");
+    		$("#contentNomeProdComparaSecond").html($(this).parent().parent().find("#nomeProduto").html());
+        	$("#contentDescProdComparaSecond").html($(this).parent().parent().find("#descProduto").html());
+        	$("#contentImgProdComparaSecond").html($(this).parent().parent().find("#imgProduto").html());
+    	}else{
+    		produtosComparados[0] = $(this).attr("data_cod_produto");
+    		$("#contentNomeProdComparaFirst").html($(this).parent().parent().find("#nomeProduto").html());
+        	$("#contentDescProdComparaFirst").html($(this).parent().parent().find("#descProduto").html());
+        	$("#contentImgProdComparaFirst").html($(this).parent().parent().find("#imgProduto").html());
+    	}
     });
     
     function listaMenu(){

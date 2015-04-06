@@ -43,4 +43,21 @@
     position: fixed; /* keeps it on the bottom once in view */
     bottom: 18px;
     right: 10px;
+    z-index: 10;
+}
+
+#contentComparaProduto
+{
+	opacity: 0.9;
+	position: fixed; /* keeps it on the bottom once in view */
+    bottom: -20px;
+    right:0px;
+    width: 100%;
+    height:150px;
+    z-index: 9;
+}
+
+#contentComparaProduto #contentImgProdComparaFirst img
+{
+	max-height: 70px;
 }
