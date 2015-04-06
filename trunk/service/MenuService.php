@@ -47,12 +47,12 @@
                                     </li>
                               </ul>
                                 <ul class="nav navbar-nav navbar-right">
-                                    <li class="dropdown pull-left">
+                                    <li class="dropdown">
                                         <a href="#" id="btnMenuFavorito">
                                             <span class="glyphicon glyphicon-star-empty fa-2x"></span>&nbsp;Favoritos
                                         </a>
                                     </li>
-                                    <li class="dropdown pull-left">';
+                                    <li class="dropdown">';
         if(isset($_SESSION["logged"])){
             $htmlProd .= '              <span>Bem vindo: '.$_SESSION["nome_usuario"].'</span>';
         }else{
