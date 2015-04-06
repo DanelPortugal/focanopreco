@@ -8,6 +8,11 @@ $(document).ready(function(){
 	});
     
     $('.containerInst').css('min-height', ($( document ).height() - 52));
+    
+    $(document).off('click', '#btnMenuFavorito');
+    $(document).on('click', '#btnMenuFavorito', function(){
+         bookmarksite("Foca no Preço", "http://bloomfieldserver.no-ip.info/focanopreco/trunk/#");
+    });
 });
 
 var PleaseWait = {
@@ -90,4 +95,19 @@ function getParameterByName(name) {
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
         results = regex.exec(location.search);
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+function bookmarksite(title,url){
+    if (document.all && window.external) {
+        window.external.AddFavorite (url,title);
+    }
+    else if (window.sidebar) { 
+        window.sidebar.addPanel(title,url,'');
+    } 
+    else {
+        alert (''
+        +'Cannot programmatically add bookmarks!\n'
+        +'Please press Ctrl+D to bookmark this page.'
+        );
+    }
 }

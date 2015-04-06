@@ -30,7 +30,11 @@
                             </div>
                             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                               <ul class="nav navbar-nav">
-                                    <li class="dropdown pull-left">
+                                    <li class="dropdown">
+                                        <a href="http://'.$_SERVER['SERVER_NAME'].'/focanopreco/trunk/index.html " role="button" aria-expanded="true">Home</a>
+                                    </li>
+                                    
+                                    <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
                                             <span class="glyphicon glyphicon-align-justify fa-2x"></span>
                                             <span>Cidades</span>
@@ -69,7 +73,7 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <br/>
-                                                <b>Cadastre-se</b> <a href="#" class="btn">Aqui</a>
+                                                <b>Cadastre-se</b> <a href="http://'.$_SERVER['SERVER_NAME'].'/focanopreco/trunk/view/Cadastro.html " class="btn">Aqui</a>
                                             </div>
                                             <div class="col-md-12">
                                                 <br/>

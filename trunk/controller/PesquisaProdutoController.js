@@ -2,6 +2,7 @@ $(document).ready(function(){
     
     $("#footer").load("../include/Footer.html");
     
+    listaMenu();
     listaProdRequest();
     
     $(document).off("click", "#toogleDivProduto");
@@ -19,6 +20,20 @@ $(document).ready(function(){
         $(".divImgProd").removeClass("col-md-8");
         $(".divDescProd").removeClass("col-md-4");
     });
+    
+    function listaMenu(){
+        $.post( "../service/MenuService.php", {
+                action:'lista_menu_index'
+            },
+            function( data ) {
+                if(data["codErro"] == 0){
+                    $("#menu").html(data["htmlMenu"]);
+                }else{
+                    window.location = "pages/login.html";
+                }
+            }
+        ,"json");
+    }
     
     function listaProdRequest(){
         $.post( "../service/PesquisaProdutoService.php", {
