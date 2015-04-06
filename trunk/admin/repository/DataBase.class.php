@@ -12,7 +12,7 @@
         function __construct(){
             $database = 'focanopreco'; 
             $username = 'root';
-            $password = 'aleajactaest';
+            $password = '';
             $hostname = 'localhost';
             
             $this->database = $database;
