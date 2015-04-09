@@ -1,10 +1,8 @@
-﻿CREATE DATABASE  IF NOT EXISTS `focanopreco` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `focanopreco`;
--- MySQL dump 10.13  Distrib 5.1.40, for Win32 (ia32)
+-- MySQL dump 10.13  Distrib 5.6.19, for Win32 (x86)
 --
 -- Host: localhost    Database: focanopreco
 -- ------------------------------------------------------
--- Server version	5.1.59-community
+-- Server version	5.6.23-enterprise-commercial-advanced-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,6 +14,85 @@ USE `focanopreco`;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `avaliacao`
+--
+
+DROP TABLE IF EXISTS `avaliacao`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `avaliacao` (
+  `cod_avaliacao` int(11) NOT NULL,
+  `des_avaliacao` text NOT NULL,
+  `cod_tipo_avalicao` int(11) NOT NULL,
+  `ind_status` int(11) NOT NULL,
+  PRIMARY KEY (`cod_avaliacao`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `avaliacao`
+--
+
+LOCK TABLES `avaliacao` WRITE;
+/*!40000 ALTER TABLE `avaliacao` DISABLE KEYS */;
+/*!40000 ALTER TABLE `avaliacao` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `avaliacao_produto`
+--
+
+DROP TABLE IF EXISTS `avaliacao_produto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `avaliacao_produto` (
+  `cod_avaliacao` int(11) NOT NULL,
+  `cod_produto` int(11) NOT NULL,
+  PRIMARY KEY (`cod_avaliacao`,`cod_produto`),
+  KEY `fk_avaliacao_produto_avaliacao1_idx` (`cod_avaliacao`),
+  KEY `fk_avaliacao_produto_produto1_idx` (`cod_produto`),
+  CONSTRAINT `fk_avaliacao_produto_avaliacao1` FOREIGN KEY (`cod_avaliacao`) REFERENCES `avaliacao` (`cod_avaliacao`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_avaliacao_produto_produto1` FOREIGN KEY (`cod_produto`) REFERENCES `produto` (`cod_produto`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `avaliacao_produto`
+--
+
+LOCK TABLES `avaliacao_produto` WRITE;
+/*!40000 ALTER TABLE `avaliacao_produto` DISABLE KEYS */;
+/*!40000 ALTER TABLE `avaliacao_produto` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `avalicao_usuario`
+--
+
+DROP TABLE IF EXISTS `avalicao_usuario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `avalicao_usuario` (
+  `cod_avaliacao` int(11) NOT NULL,
+  `cod_usuario` int(11) DEFAULT NULL,
+  PRIMARY KEY (`cod_avaliacao`),
+  KEY `fk_avalicao_usuario_avaliacao1_idx` (`cod_avaliacao`),
+  KEY `fk_avalicao_usuario_usuario1_idx` (`cod_usuario`),
+  CONSTRAINT `fk_avalicao_usuario_avaliacao1` FOREIGN KEY (`cod_avaliacao`) REFERENCES `avaliacao` (`cod_avaliacao`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_avalicao_usuario_usuario1` FOREIGN KEY (`cod_usuario`) REFERENCES `usuario` (`cod_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `avalicao_usuario`
+--
+
+LOCK TABLES `avalicao_usuario` WRITE;
+/*!40000 ALTER TABLE `avalicao_usuario` DISABLE KEYS */;
+/*!40000 ALTER TABLE `avalicao_usuario` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `categoria`
@@ -69,31 +146,54 @@ INSERT INTO `imagem` VALUES ('image_repository/thumb/notebook.jpg','image_reposi
 UNLOCK TABLES;
 
 --
--- Table structure for table `sub_categoria`
+-- Table structure for table `perfil`
 --
 
-DROP TABLE IF EXISTS `sub_categoria`;
+DROP TABLE IF EXISTS `perfil`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `sub_categoria` (
-  `cod_sub_categoria` int(11) NOT NULL AUTO_INCREMENT,
-  `nom_sub_categoria` varchar(45) NOT NULL,
-  `des_sub_categoria` varchar(45) DEFAULT NULL,
-  `cod_categoria` int(11) NOT NULL,
-  PRIMARY KEY (`cod_sub_categoria`),
-  KEY `fk_sub_categoria_categora1_idx` (`cod_categoria`),
-  CONSTRAINT `fk_sub_categoria_categora1` FOREIGN KEY (`cod_categoria`) REFERENCES `categoria` (`cod_categoria`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+CREATE TABLE `perfil` (
+  `cod_perfil` int(11) NOT NULL AUTO_INCREMENT,
+  `nom_perfil` varchar(45) NOT NULL,
+  `des_perfil` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`cod_perfil`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `sub_categoria`
+-- Dumping data for table `perfil`
 --
 
-LOCK TABLES `sub_categoria` WRITE;
-/*!40000 ALTER TABLE `sub_categoria` DISABLE KEYS */;
-INSERT INTO `sub_categoria` VALUES (1,'Memórias RAM','Ram Teste',1),(2,'Notebooks','PC',2);
-/*!40000 ALTER TABLE `sub_categoria` ENABLE KEYS */;
+LOCK TABLES `perfil` WRITE;
+/*!40000 ALTER TABLE `perfil` DISABLE KEYS */;
+INSERT INTO `perfil` VALUES (1,'ADMINISTRADOR','ADMINISTRADOR SISTEMA'),(2,'ANUNCIANTE','ANUNCIANTE DE PRODUTO'),(3,'USUÁRIO REDE SOCIAL','USUÁRIO LOGIN REDE SOCIAL');
+/*!40000 ALTER TABLE `perfil` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pessoa_fisica`
+--
+
+DROP TABLE IF EXISTS `pessoa_fisica`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pessoa_fisica` (
+  `cod_pessoa_fisica` int(11) NOT NULL AUTO_INCREMENT,
+  `num_cpf` int(11) NOT NULL,
+  `cod_usuario` int(11) NOT NULL,
+  PRIMARY KEY (`cod_pessoa_fisica`),
+  KEY `fk_pessoa_fisica_usuario1_idx` (`cod_usuario`),
+  CONSTRAINT `fk_pessoa_fisica_usuario1` FOREIGN KEY (`cod_usuario`) REFERENCES `usuario` (`cod_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pessoa_fisica`
+--
+
+LOCK TABLES `pessoa_fisica` WRITE;
+/*!40000 ALTER TABLE `pessoa_fisica` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pessoa_fisica` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -120,6 +220,69 @@ CREATE TABLE `pessoa_juridica` (
 LOCK TABLES `pessoa_juridica` WRITE;
 /*!40000 ALTER TABLE `pessoa_juridica` DISABLE KEYS */;
 /*!40000 ALTER TABLE `pessoa_juridica` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `produto`
+--
+
+DROP TABLE IF EXISTS `produto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `produto` (
+  `cod_produto` int(11) NOT NULL AUTO_INCREMENT,
+  `nom_produto` varchar(45) DEFAULT NULL,
+  `des_produto` varchar(45) DEFAULT NULL,
+  `cod_usuario` int(11) NOT NULL,
+  `cod_categoria` int(11) NOT NULL,
+  `pre_produto` varchar(25) DEFAULT NULL,
+  `cod_sub_categoria` int(11) NOT NULL,
+  PRIMARY KEY (`cod_produto`),
+  KEY `fk_produto_usuario1_idx` (`cod_usuario`),
+  KEY `fk_produto_categora1_idx` (`cod_categoria`),
+  KEY `fk_sub_categoria` (`cod_sub_categoria`),
+  CONSTRAINT `fk_produto_categora1` FOREIGN KEY (`cod_categoria`) REFERENCES `categoria` (`cod_categoria`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_produto_usuario1` FOREIGN KEY (`cod_usuario`) REFERENCES `usuario` (`cod_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_sub_categoria` FOREIGN KEY (`cod_sub_categoria`) REFERENCES `sub_categoria` (`cod_sub_categoria`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `produto`
+--
+
+LOCK TABLES `produto` WRITE;
+/*!40000 ALTER TABLE `produto` DISABLE KEYS */;
+INSERT INTO `produto` VALUES (21,'Note Book','Excel&ecirc;nte note, aprovado',1,2,'1200.00',2),(22,'Note Book','Excel&ecirc;nte note, aprovado',1,2,'1200.00',2),(23,'Mem&oacute;ria Ram','&Oacute;tima oportunidade',1,1,'120.00',1),(24,'teste','teste',1,2,'10.00',2),(25,'Tul&iacute;pa','asdasd',1,1,'100.00',1),(26,'teste lendo','qweqwe',1,1,'100.00',1),(27,'teste 3','321321',1,1,'100.00',1),(28,'Teste dam dam','hahah',1,2,'10.00',2);
+/*!40000 ALTER TABLE `produto` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sub_categoria`
+--
+
+DROP TABLE IF EXISTS `sub_categoria`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sub_categoria` (
+  `cod_sub_categoria` int(11) NOT NULL AUTO_INCREMENT,
+  `nom_sub_categoria` varchar(45) NOT NULL,
+  `des_sub_categoria` varchar(45) DEFAULT NULL,
+  `cod_categoria` int(11) NOT NULL,
+  PRIMARY KEY (`cod_sub_categoria`),
+  KEY `fk_sub_categoria_categora1_idx` (`cod_categoria`),
+  CONSTRAINT `fk_sub_categoria_categora1` FOREIGN KEY (`cod_categoria`) REFERENCES `categoria` (`cod_categoria`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sub_categoria`
+--
+
+LOCK TABLES `sub_categoria` WRITE;
+/*!40000 ALTER TABLE `sub_categoria` DISABLE KEYS */;
+INSERT INTO `sub_categoria` VALUES (1,'Memórias RAM','Ram Teste',1),(2,'Notebooks','PC',2);
+/*!40000 ALTER TABLE `sub_categoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -159,171 +322,6 @@ INSERT INTO `usuario` VALUES (1,'Administrador','Admin',1,1,NULL,'admin','admin'
 UNLOCK TABLES;
 
 --
--- Table structure for table `produto`
---
-
-DROP TABLE IF EXISTS `produto`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `produto` (
-  `cod_produto` int(11) NOT NULL AUTO_INCREMENT,
-  `nom_produto` varchar(45) DEFAULT NULL,
-  `des_produto` varchar(45) DEFAULT NULL,
-  `cod_usuario` int(11) NOT NULL,
-  `cod_categoria` int(11) NOT NULL,
-  `pre_produto` varchar(25) DEFAULT NULL,
-  `cod_sub_categoria` int(11) NOT NULL,
-  PRIMARY KEY (`cod_produto`),
-  KEY `fk_produto_usuario1_idx` (`cod_usuario`),
-  KEY `fk_produto_categora1_idx` (`cod_categoria`),
-  KEY `fk_sub_categoria` (`cod_sub_categoria`),
-  CONSTRAINT `fk_produto_categora1` FOREIGN KEY (`cod_categoria`) REFERENCES `categoria` (`cod_categoria`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_produto_usuario1` FOREIGN KEY (`cod_usuario`) REFERENCES `usuario` (`cod_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_sub_categoria` FOREIGN KEY (`cod_sub_categoria`) REFERENCES `sub_categoria` (`cod_sub_categoria`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `produto`
---
-
-LOCK TABLES `produto` WRITE;
-/*!40000 ALTER TABLE `produto` DISABLE KEYS */;
-INSERT INTO `produto` VALUES (21,'Note Book','Excel&ecirc;nte note, aprovado',1,2,'1200.00',2),(22,'Note Book','Excel&ecirc;nte note, aprovado',1,2,'1200.00',2),(23,'Mem&oacute;ria Ram','&Oacute;tima oportunidade',1,1,'120.00',1),(24,'teste','teste',1,2,'10.00',2),(25,'Tul&iacute;pa','asdasd',1,1,'100.00',1),(26,'teste lendo','qweqwe',1,1,'100.00',1),(27,'teste 3','321321',1,1,'100.00',1),(28,'Teste dam dam','hahah',1,2,'10.00',2);
-/*!40000 ALTER TABLE `produto` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `avaliacao_produto`
---
-
-DROP TABLE IF EXISTS `avaliacao_produto`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `avaliacao_produto` (
-  `cod_avaliacao` int(11) NOT NULL,
-  `cod_produto` int(11) NOT NULL,
-  PRIMARY KEY (`cod_avaliacao`,`cod_produto`),
-  KEY `fk_avaliacao_produto_avaliacao1_idx` (`cod_avaliacao`),
-  KEY `fk_avaliacao_produto_produto1_idx` (`cod_produto`),
-  CONSTRAINT `fk_avaliacao_produto_avaliacao1` FOREIGN KEY (`cod_avaliacao`) REFERENCES `avaliacao` (`cod_avaliacao`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_avaliacao_produto_produto1` FOREIGN KEY (`cod_produto`) REFERENCES `produto` (`cod_produto`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `avaliacao_produto`
---
-
-LOCK TABLES `avaliacao_produto` WRITE;
-/*!40000 ALTER TABLE `avaliacao_produto` DISABLE KEYS */;
-/*!40000 ALTER TABLE `avaliacao_produto` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `perfil`
---
-
-DROP TABLE IF EXISTS `perfil`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `perfil` (
-  `cod_perfil` int(11) NOT NULL AUTO_INCREMENT,
-  `nom_perfil` varchar(45) NOT NULL,
-  `des_perfil` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`cod_perfil`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `perfil`
---
-
-LOCK TABLES `perfil` WRITE;
-/*!40000 ALTER TABLE `perfil` DISABLE KEYS */;
-INSERT INTO `perfil` VALUES (1,'ADMINISTRADOR','ADMINISTRADOR SISTEMA'),(2,'ANUNCIANTE','ANUNCIANTE DE PRODUTO'),(3,'USUÁRIO REDE SOCIAL','USUÁRIO LOGIN REDE SOCIAL');
-/*!40000 ALTER TABLE `perfil` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `avalicao_usuario`
---
-
-DROP TABLE IF EXISTS `avalicao_usuario`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `avalicao_usuario` (
-  `cod_avaliacao` int(11) NOT NULL,
-  `cod_usuario` int(11) DEFAULT NULL,
-  PRIMARY KEY (`cod_avaliacao`),
-  KEY `fk_avalicao_usuario_avaliacao1_idx` (`cod_avaliacao`),
-  KEY `fk_avalicao_usuario_usuario1_idx` (`cod_usuario`),
-  CONSTRAINT `fk_avalicao_usuario_avaliacao1` FOREIGN KEY (`cod_avaliacao`) REFERENCES `avaliacao` (`cod_avaliacao`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_avalicao_usuario_usuario1` FOREIGN KEY (`cod_usuario`) REFERENCES `usuario` (`cod_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `avalicao_usuario`
---
-
-LOCK TABLES `avalicao_usuario` WRITE;
-/*!40000 ALTER TABLE `avalicao_usuario` DISABLE KEYS */;
-/*!40000 ALTER TABLE `avalicao_usuario` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `pessoa_fisica`
---
-
-DROP TABLE IF EXISTS `pessoa_fisica`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `pessoa_fisica` (
-  `cod_pessoa_fisica` int(11) NOT NULL AUTO_INCREMENT,
-  `num_cpf` int(11) NOT NULL,
-  `cod_usuario` int(11) NOT NULL,
-  PRIMARY KEY (`cod_pessoa_fisica`),
-  KEY `fk_pessoa_fisica_usuario1_idx` (`cod_usuario`),
-  CONSTRAINT `fk_pessoa_fisica_usuario1` FOREIGN KEY (`cod_usuario`) REFERENCES `usuario` (`cod_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `pessoa_fisica`
---
-
-LOCK TABLES `pessoa_fisica` WRITE;
-/*!40000 ALTER TABLE `pessoa_fisica` DISABLE KEYS */;
-/*!40000 ALTER TABLE `pessoa_fisica` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `avaliacao`
---
-
-DROP TABLE IF EXISTS `avaliacao`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `avaliacao` (
-  `cod_avaliacao` int(11) NOT NULL,
-  `des_avaliacao` text NOT NULL,
-  `cod_tipo_avalicao` int(11) NOT NULL,
-  `ind_status` int(11) NOT NULL,
-  PRIMARY KEY (`cod_avaliacao`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `avaliacao`
---
-
-LOCK TABLES `avaliacao` WRITE;
-/*!40000 ALTER TABLE `avaliacao` DISABLE KEYS */;
-/*!40000 ALTER TABLE `avaliacao` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Dumping routines for database 'focanopreco'
 --
 /*!50003 DROP PROCEDURE IF EXISTS `editar_produto` */;
@@ -336,7 +334,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `editar_produto`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `editar_produto`(
 	IN codProduto INT,
 	IN nomProduto VARCHAR(45),
     IN desProduto VARCHAR(45)
@@ -346,7 +344,7 @@ BEGIN
 		nom_produto = nomProduto,
 		des_produto = desProduto
 	WHERE cod_produto = codProduto;
-END */;;
+END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -362,7 +360,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `inserir_imagem_produto`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `inserir_imagem_produto`(
     IN imgPeg TEXT,
     IN imgGrd TEXT,
     IN codProduto INT
@@ -379,7 +377,7 @@ BEGIN
     codProduto
     );
 
-END */;;
+END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -395,7 +393,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `inserir_produto_usuario`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `inserir_produto_usuario`(
     IN nomProduto VARCHAR(45),
     IN desProduto VARCHAR(45),
     IN codUsuario INT,
@@ -423,7 +421,7 @@ BEGIN
         codSubCategoria
     );
 
-END */;;
+END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -439,7 +437,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `inserir_usuario_network`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `inserir_usuario_network`(
     IN nomUsuario VARCHAR(45),
     IN sobNomUsuario VARCHAR(45),
     IN nomLogin VARCHAR(200),
@@ -468,7 +466,7 @@ BEGIN
     emailUsuario,
     1
     );
-END */;;
+END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -484,10 +482,46 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `listar_categoria`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_categoria`()
 BEGIN
 SELECT * FROM categoria;
-END */;;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `listar_produto_comparacao` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_produto_comparacao`(
+	IN codProduto1 INT,
+    IN codProduto2 INT
+)
+BEGIN
+	SELECT 
+        prod.cod_produto,
+        prod.nom_produto,
+        prod.des_produto,
+        prod.cod_usuario,
+        prod.cod_categoria,
+        prod.pre_produto,
+        cat.nom_categoria,
+        img.produto_img_peq,
+        usu.nom_usuario
+    FROM produto prod
+    LEFT JOIN usuario usu ON usu.cod_usuario = prod.cod_usuario
+    LEFT JOIN categoria cat ON cat.cod_categoria = prod.cod_categoria
+    LEFT JOIN imagem img ON img.cod_produto = prod.cod_produto
+    WHERE prod.cod_produto in (codProduto1, codProduto2);
+END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -503,7 +537,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `listar_produto_destaque_index`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_produto_destaque_index`(
 	IN codCategoria INT
 )
 BEGIN
@@ -511,7 +545,7 @@ BEGIN
     LEFT JOIN imagem img on img.cod_produto = prod.cod_produto
     WHERE prod.cod_categoria = codCategoria
     LIMIT 11;
-END */;;
+END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -527,13 +561,13 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `listar_produto_inserido_usuario`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_produto_inserido_usuario`(
     IN codUsuario INT
 )
 BEGIN
     SELECT MAX(cod_produto) as cod_produto  FROM produto
     WHERE cod_usuario = codUsuario;
-END */;;
+END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -549,7 +583,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `listar_produto_pesquisa`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_produto_pesquisa`(
     IN nomProduto VARCHAR(45)
 )
 BEGIN
@@ -568,7 +602,7 @@ BEGIN
     LEFT JOIN categoria cat ON cat.cod_categoria = prod.cod_categoria
     LEFT JOIN imagem img ON img.cod_produto = prod.cod_produto
     WHERE prod.nom_produto like nomProduto;
-END */;;
+END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -584,7 +618,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `listar_produto_selecionado`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_produto_selecionado`(
 	IN codProduto INT
 )
 BEGIN
@@ -592,7 +626,7 @@ BEGIN
     INNER JOIN categoria cat on cat.cod_categoria = prod.cod_categoria
     LEFT JOIN imagem img on img.cod_produto = prod.cod_produto
     WHERE prod.cod_produto = codProduto;
-END */;;
+END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -608,7 +642,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `listar_produto_usuario`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_produto_usuario`(
 	IN codUsuario INT
 )
 BEGIN
@@ -616,7 +650,7 @@ BEGIN
     INNER JOIN categoria cat on cat.cod_categoria = prod.cod_categoria
     LEFT JOIN imagem img on img.cod_produto = prod.cod_produto
     WHERE prod.cod_usuario = codUsuario;
-END */;;
+END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -632,13 +666,13 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `listar_sub_categoria`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_sub_categoria`(
     IN codCategoria INT
 )
 BEGIN
     SELECT * FROM sub_categoria
     WHERE cod_categoria = codCategoria;
-END */;;
+END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -654,7 +688,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `logar_usuario`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `logar_usuario`(
 	in nomLogin VARCHAR(45),
     in nomSenha VARCHAR(45)
 )
@@ -662,7 +696,7 @@ BEGIN
 	SELECT * FROM usuario 
     where nom_login = nomLogin
     and nomSenha = nomSenha;
-END */;;
+END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -678,7 +712,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 PROCEDURE `logar_usuario_network`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `logar_usuario_network`(
     IN nomLogin VARCHAR(45),
     IN desEmail VARCHAR(45)
 )
@@ -687,7 +721,7 @@ BEGIN
     WHERE nom_login = nomLogin
     AND des_senha = 'usuario_network'
     AND des_email_usuario = desEmail;
-END */;;
+END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -703,4 +737,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-03-31 12:54:59
+-- Dump completed on 2015-04-09 14:03:45

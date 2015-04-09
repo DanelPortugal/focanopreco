@@ -53,6 +53,11 @@ $(document).ready(function(){
     	}
     });
     
+    $(document).off("click", "#btnComparaListaProduto");
+    $(document).on("click", "#btnComparaListaProduto", function(){
+        comparaProduto(produtosComparados)
+    });
+    
     function listaMenu(){
         $.post( "service/MenuService.php", {
                 action:'lista_menu_index'
@@ -98,6 +103,16 @@ $(document).ready(function(){
                 }
             }
         ,"json");
+    }
+    
+    function comparaProduto(arrProdutos){
+    	var str = "";
+    	var i;
+    	for(i = 0; i < arrProdutos.length; i++){
+    		str += "codProduto" + (i+1) + "=" + arrProdutos[i] + "&";
+    	}
+    	
+    	window.location = "view/ComparaProduto.html?"+str.substring(0,(str.length - 1));
     }
 });
 
